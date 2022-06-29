@@ -32,6 +32,7 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -199,9 +200,7 @@ public final class ConnectorUtils {
 		File directory = new File(System.getProperty("java.io.tmpdir"));
 		File tempDir;
 		try {
-			tempDir = File.createTempFile("skype-java-api", "", directory);
-			tempDir.delete();
-			tempDir.mkdir();
+			tempDir = Files.createTempDirectory(directory.toPath(), "skype-java-api" + "").toFile();
 			skypeApiTempDir =  tempDir.getCanonicalPath();
 			return skypeApiTempDir;
 		} catch (IOException e) {
